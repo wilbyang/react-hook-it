@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import useWindowSize from './useWindowSize';
 
 function App() {
+  const size = useWindowSize();
+  console.log(size);
   return (
     <div className="App">
       <header className="App-header">
