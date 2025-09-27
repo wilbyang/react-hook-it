@@ -1,9 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import useWindowSize from './useWindowSize';
-
+import usePlayLists from './usePlayLists';
 function App() {
   const size = useWindowSize();
+  const playLists = usePlayLists();
+  console.log(playLists);
   console.log(size);
   return (
     <div className="App">
