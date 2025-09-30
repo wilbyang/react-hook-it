@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import useWindowSize from './useWindowSize';
 import { useGetPlaylistsQuery, useCreatePlaylistMutation } from './services/playlistsApi';
+import ToastContainer from './features/toast/ToastContainer';
 function App() {
   const size = useWindowSize();
   const { data: playLists, isLoading, isError, error, refetch } = useGetPlaylistsQuery();
@@ -16,6 +17,7 @@ function App() {
   };
 
   return (
+    <>
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -29,7 +31,14 @@ function App() {
             <button onClick={handleCreate} disabled={creating}>{creating ? '创建中...' : '新增播放列表'}</button>
           </div>
           {isLoading && <p>加载中...</p>}
-          {isError && <p style={{ color: 'red' }}>加载失败: {error?.status || ''}</p>}
+          {isError && (
+            <div style={{ color: 'red' }}>
+              加载失败: {error?.status || ''}
+              <div style={{ fontSize: 12, marginTop: 4, opacity: 0.8 }}>
+                已达到最大重试次数 (3)。
+              </div>
+            </div>
+          )}
           {playLists && (
             <div style={{ textAlign: 'left', maxWidth: '560px' }}>
               {playLists.map((playlist) => (
@@ -47,7 +56,9 @@ function App() {
           )}
         </div>
       </header>
-    </div>
+  </div>
+  <ToastContainer />
+  </>
   );
 }
 
