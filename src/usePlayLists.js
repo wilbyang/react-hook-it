@@ -10,9 +10,9 @@ export default function usePlayLists() {
         const doAsync = async () => {
             setContent(null);
             try {
-                const res = await fetch(``, { signal });
-                const text = await res.text();
-                setContent(text);
+                const res = await fetch(`/playlists`, { signal });
+                const data = await res.json(); // 改为json()以处理mock数据
+                setContent(data);
             } catch (err) {
                 if (err.name !== "AbortError") {
                     console.error(err);
